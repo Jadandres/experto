@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PMML version="4.2" xmlns="http://www.dmg.org/PMML-4_2">
+  <Header copyright="jonat">
+    <Application name="KNIME" version="4.7.3"/>
+  </Header>
+  <DataDictionary numberOfFields="5">
+    <DataField name="edad" optype="categorical" dataType="string">
+      <Value value="joven"/>
+      <Value value="adulto"/>
+    </DataField>
+    <DataField name="diagnostico" optype="categorical" dataType="string">
+      <Value value="miope"/>
+      <Value value="hipermetrope"/>
+    </DataField>
+    <DataField name="astigmatismo" optype="categorical" dataType="string">
+      <Value value="no"/>
+      <Value value="si"/>
+    </DataField>
+    <DataField name="lagrima" optype="categorical" dataType="string">
+      <Value value="reducida"/>
+      <Value value="normal"/>
+    </DataField>
+    <DataField name="lente" optype="categorical" dataType="string">
+      <Value value="ninguno"/>
+      <Value value="blanda"/>
+      <Value value="rigida"/>
+    </DataField>
+  </DataDictionary>
+  <TreeModel modelName="DecisionTree" functionName="classification" splitCharacteristic="binarySplit" missingValueStrategy="lastPrediction" noTrueChildStrategy="returnNullPrediction">
+    <MiningSchema>
+      <MiningField name="edad" invalidValueTreatment="asIs"/>
+      <MiningField name="diagnostico" invalidValueTreatment="asIs"/>
+      <MiningField name="astigmatismo" invalidValueTreatment="asIs"/>
+      <MiningField name="lagrima" invalidValueTreatment="asIs"/>
+      <MiningField name="lente" invalidValueTreatment="asIs" usageType="target"/>
+    </MiningSchema>
+    <Node id="0" score="ninguno" recordCount="16.0">
+      <True/>
+      <ScoreDistribution value="ninguno" recordCount="10.0"/>
+      <ScoreDistribution value="blanda" recordCount="3.0"/>
+      <ScoreDistribution value="rigida" recordCount="3.0"/>
+      <Node id="1" score="ninguno" recordCount="8.0">
+        <SimplePredicate field="lagrima" operator="equal" value="reducida"/>
+        <ScoreDistribution value="ninguno" recordCount="8.0"/>
+        <ScoreDistribution value="blanda" recordCount="0.0"/>
+        <ScoreDistribution value="rigida" recordCount="0.0"/>
+      </Node>
+      <Node id="2" score="blanda" recordCount="8.0">
+        <SimplePredicate field="lagrima" operator="equal" value="normal"/>
+        <ScoreDistribution value="ninguno" recordCount="2.0"/>
+        <ScoreDistribution value="blanda" recordCount="3.0"/>
+        <ScoreDistribution value="rigida" recordCount="3.0"/>
+        <Node id="3" score="ninguno" recordCount="4.0">
+          <SimplePredicate field="astigmatismo" operator="equal" value="no"/>
+          <ScoreDistribution value="ninguno" recordCount="2.0"/>
+          <ScoreDistribution value="blanda" recordCount="2.0"/>
+          <ScoreDistribution value="rigida" recordCount="0.0"/>
+          <Node id="4" score="blanda" recordCount="2.0">
+            <SimplePredicate field="edad" operator="equal" value="joven"/>
+            <ScoreDistribution value="ninguno" recordCount="0.0"/>
+            <ScoreDistribution value="blanda" recordCount="2.0"/>
+            <ScoreDistribution value="rigida" recordCount="0.0"/>
+          </Node>
+          <Node id="5" score="ninguno" recordCount="2.0">
+            <SimplePredicate field="edad" operator="equal" value="adulto"/>
+            <ScoreDistribution value="ninguno" recordCount="2.0"/>
+            <ScoreDistribution value="blanda" recordCount="0.0"/>
+            <ScoreDistribution value="rigida" recordCount="0.0"/>
+          </Node>
+        </Node>
+        <Node id="6" score="rigida" recordCount="4.0">
+          <SimplePredicate field="astigmatismo" operator="equal" value="si"/>
+          <ScoreDistribution value="ninguno" recordCount="0.0"/>
+          <ScoreDistribution value="blanda" recordCount="1.0"/>
+          <ScoreDistribution value="rigida" recordCount="3.0"/>
+        </Node>
+      </Node>
+    </Node>
+  </TreeModel>
+</PMML>
